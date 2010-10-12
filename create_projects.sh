@@ -30,8 +30,9 @@ done
 
 # Set up the Mercurial project
 cd $hg_project
+echo "syntax: glob" >> ./ignore_template
+mv ./ignore_template ./.hgignore
 hg init
-cp ../.gitignore ./.hgignore
 hg add
 hg commit -m "initial hg commit"
 hg log
@@ -39,8 +40,8 @@ cd -
 
 # Set up the Bazaar project
 cd $bzr_project
+mv ./ignore_template ./.bzrignore
 bzr init
-cp ../.gitignore ./.bzrignore
 bzr add
 bzr commit -m "initial bzr commit"
 bzr log
@@ -48,8 +49,8 @@ cd -
 
 # Set up the Git project
 cd $git_project
+mv ./ignore_template ./.gitignore
 git init .
-cp ../.gitignore .
 git add .
 git commit -m "initial git commit"
 git log
