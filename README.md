@@ -9,8 +9,8 @@ between Git, Mercurial and Bazaar.
 The scripts which create and clean the projects are included in this 
 directory and are called:
 
-create_projects.sh
-clean_projects.sh
+* create_projects.sh
+* clean_projects.sh
 
 ## This project has the following DSCM dependencies (must be available):
 
@@ -20,11 +20,12 @@ clean_projects.sh
 
 ## The Php code in this project has the following dependencies:
 
-Php 5.2+
-PhpUnit 3.5+
-Phing 2.4+
-[Symfony Components](http://components.symfony-project.org), namely -  
+* Php 5.2+
+* PhpUnit 3.5+
+* Phing 2.4+
+* [Symfony Components](http://components.symfony-project.org), namely -  
   EventDispatcher, Dependency Injection, Yaml
+
 The symfony components are cloned from their github repos by a script 
 in the $PROJECT/bin directory
 
@@ -33,18 +34,22 @@ in the $PROJECT/bin directory
 ### bin
 
 The script that automate the creation and configuration of the project.
-create_proj.sh 
+
+* create_proj.sh 
 
 ### lib
 
-The Php application classes
-The 3rd Party classes (in vendor)
+* The Php application classes
+* The 3rd Party classes (in vendor)
 
 ### build 
 
 The Phing build file and any other build resources.
-From inside this directory run `phing -l` to see the list of 
-available tasks (running the tests is the default).
+From inside this directory run 
+
+    phing -l
+
+to see the list of available tasks (running the tests is the default).
 
 ### test
 
