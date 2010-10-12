@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="test" name="scm_systems">
+
+  <!-- Directories -->
+  <property name="src_dir" value="./lib" />
+  <property name="test_dir" value="./test" />
+  <property name="build_dir" value="./build" />
+  <property name="target_dir" value="./target" />
+  <property name="test_deploy_dir" value="${target_dir}/test" />
+  <property name="reports_test_dir" value="${target_dir}/reports/test" />
+
+  <!-- Targets -->
+  <target name="clean" description="Delete the target dir">
+    <delete dir="${target_dir}" />
+  </target>
+  
+  <target name="init" depends="clean" 
+    description="Create the directories that we need">
+    <mkdir dir="${target_dir}" />
+    <mkdir dir="${test_deploy_dir}" />
+    <mkdir dir="${reports_test_dir}" />
+  </target>
+
+  <target name="getTestClass" description="Get the test class we want to use">
+      <if>
+      <isset property="test" />
+      <then>
+        <echo message="Test class [${test}]"/>
+        <property name="test.class" value="${test}"/>
+      </then>
+      <else>
+        <echo message="Test class no existe" />
+        <property name="test.class" value=""/>
+      </else>
+    </if>
+  </target>	
+
+  <target name="createTestStructure" depends="init" 
+    description="Create the structure for the tests">
+    <copy todir="${test_deploy_dir}" includeemptydirs="false">
+      <fileset dir="${src_dir}">
+        <include name="**/*.php"/>
+        <include name="**/*.yml"/>
+        <exclude name="**/*Test.php"/>
+      </fileset>
+      <fileset dir="${test_dir}">
+        <include name="**/*.php"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="test" depends="getTestClass, createTestStructure" 
+    description="Run the tests">
+
+    <includepath classpath="${test_deploy_dir}" />
+    <includepath classpath="${test_deploy_dir}/lib" />
+
+    <phpunit codecoverage="false" printsummary="true">
+      <batchtest>
+        <fileset dir="${test_deploy_dir}">
+          <include name="**/*${test.class}Test.php"/>
+        </fileset>
+      </batchtest>
+      <formatter type="xml" todir="${reports_test_dir}" outfile="logfile.xml"/>
+    </phpunit>
+  </target>
+</project> 

@@ -1,0 +1,27 @@
+parameters:
+  cvs: cvs
+  cvs_catch: I am the original and still the best
+  svn: svn
+  svn_catch: these young whipper-snappers have no idea
+  git: git
+  git_catch: good enough for Torvalds is good enough for you
+  bzr: bzr
+  bzr_catch: Ubuntu is future and I made it happen
+  hg: hg
+  hg_catch: now that Atlassian have taken over bitbucket I am on my way
+services:
+  event_disp: { class: sfEventDispatcher }
+  scm_cvs: { class: SCMSystem, arguments: [%cvs%, %cvs_catch%] }
+  scm_svn: { class: SCMSystem, arguments: [%svn%, %svn_catch%] }
+  scm_git: { class: SCMSystem, arguments: [%git%, %git_catch%] }
+  scm_bzr: { class: SCMSystem, arguments: [%bzr%, %bzr_catch%] }
+  scm_hg: { class: SCMSystem, arguments: [%hg%, %hg_catch%] }
+  scm_tax:
+    class: SCMTaxonomy
+    arguments: [ @event_disp ]
+    calls:
+      - [ addSCMSystem, [ @scm_cvs ] ]
+      - [ addSCMSystem, [ @scm_svn ] ]
+      - [ addSCMSystem, [ @scm_git ] ]
+      - [ addSCMSystem, [ @scm_bzr ] ]
+      - [ addSCMSystem, [ @scm_hg ] ]
