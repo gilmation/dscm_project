@@ -14,9 +14,9 @@ clean_projects.sh
 
 ## This project has the following DSCM dependencies (must be available):
 
-Git
-Mercurial
-Bazaar
+* Git
+* Mercurial
+* Bazaar
 
 ## The Php code in this project has the following dependencies:
 
